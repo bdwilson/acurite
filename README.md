@@ -33,7 +33,7 @@ serve 2 purposes - run Weewx and act as place for your SmartHUB to submit it's
 pressure data to (your Pi will answer for hubapi.myacurite.com). 
 2. Install Weewx, SDR tools, [Weewx-SDR](https://github.com/matthewwall/weewx-sdr),
 connect up your SDR device and make sure you see your sensors show up. 
-<code>
+<pre>
 $ sudo apt-get install weewx git cmake libusb-1.0-0-dev<
 $ mkdir git
 $ cd git
@@ -62,9 +62,9 @@ $ sudo wee_config --reconfigure --driver=user.sdr --no-prompt
 # Run sdr.py to determine how to map your sensors. 
 $ cd /usr/share/weewx
 $ sudo PYTHONPATH=. python user/sdr.py --cmd="rtl_433 -M utc -F json -G"
-</code>
+</pre>
 3. This command should output data that will allow you to map your device(s) to Weewx. It should look similar to this, but for more info, check [Weewx-sdr instructions](https://github.com/matthewwall/weewx-sdr). This will go in /etc/weewx/weewx.conf.
-<code>
+<pre>
 # collect data from Acurite 5n1 sensor 0BFA and t/h sensor 24A4
 [SDR]
     driver = user.sdr
@@ -76,7 +76,7 @@ $ sudo PYTHONPATH=. python user/sdr.py --cmd="rtl_433 -M utc -F json -G"
         rain_total = rain_total.0BFA.Acurite5n1Packet
         inTemp = temperature.24A4.AcuriteTowerPacket
         inHumidity = humidity.24A4.AcuriteTowerPacket
-</code>
+</pre>
 4. Hopefully you're getting sensor data now, go to http://your.ip.address/weewx
 and verify that you are getting data from your sensors and check
 /var/log/syslog if you're not. You won't get pressure data, so here's where
@@ -89,27 +89,27 @@ B+, and should work for newer devices.  Don't connect your SmartHUB yet.
 6. Add an entry to /etc/hosts on your device, it should look similar to below,
 but with the ip address (wireless lan IP) of your Pi - use ifconfig -a command
 to get this if you're not sure:
-<code>
+<pre>
 192.168.XX.XX  hubapi.myacurite.com
-</code>
+</pre>
 7. Install apache2 and enable cgi support (this assumes that this host only
 exists on your LAN and not exposed to the Internet. You're about to enable
 access to a webserver on your LAN).
-<code>
+<pre>
 $ sudo apt-get install apache2 
 $ sudo sudo a2enmod cgi
-</code>
+</pre>
 8. Create a file and store it in /usr/lib/cgi-bin/myacurite, make it executable
 and create a directory and file to store pressure data.
-<code>
+<pre>
 $ sudo vi /usr/lib/cgi-bin/myacurite
 $ sudo chmod 755 /usr/lib/cgi-bin/myacurite
 $ sudo mkdir /var/lib/bridge-data
 $ sudo touch /var/lib/bridge-data/pressure
 $ sudo chown -R www-data:www-data  /var/lib/bridge-data/
-</code>
+</pre>
 9. Create a /etc/apache2/conf-enabled/acurite.conf
-<code>
+<pre>
 ScriptAlias /weatherstation/updateweatherstation /usr/lib/cgi-bin/myacurite
 <Directory "/usr/lib/cgi-bin">
     AllowOverride all
@@ -118,20 +118,20 @@ ScriptAlias /weatherstation/updateweatherstation /usr/lib/cgi-bin/myacurite
     Allow from all
 Require all granted
 </Directory>
-</code>
-10. Restart apache <code> $ sudo /etc/init.d/apache2 restart</code>
+</pre>
+10. Restart apache <pre> $ sudo /etc/init.d/apache2 restart</pre>
 11. Copy pond.py (from this repo) to /usr/share/weewx/user and enable in /etc/weewx/weewx.conf
 (this is based on [this](https://github.com/weewx/weewx/wiki/add-sensor)). 
-<code>
+<pre>
 [Engine]
     [[Services]]
         data_services = user.pond.PondService
-</code>
+</pre>
 12. Restart Weewx
-<code>
+<pre>
 sudo /etc/init.d/weewx stop
 sudo /etc/init.d/weewx start
-</code>
+</pre>
 13. Connect your SmartHUB to your Rpi via ethernet, it should start sending
 data to your Rpi and writing that pressure data to:
 /var/lib/bridge-data/pressure. It should not be attempting to send data to
