@@ -122,13 +122,12 @@ $ sudo chown -R www-data:www-data  /var/lib/bridge-data/
 9. Create a /etc/apache2/conf-enabled/acurite.conf
 <pre>
 ScriptAlias /weatherstation/updateweatherstation /usr/lib/cgi-bin/myacurite
-<Directory "/usr/lib/cgi-bin">
-    AllowOverride all
+\\<Directory "/usr/lib/cgi-bin"\\>
     Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch
     Order allow,deny
     Allow from all
 Require all granted
-</Directory>
+\\</Directory\\>
 </pre>
 10. Restart apache <pre> $ sudo /etc/init.d/apache2 restart</pre>
 11. Copy pond.py (from this repo) to /usr/share/weewx/user and enable in /etc/weewx/weewx.conf
