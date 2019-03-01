@@ -81,8 +81,7 @@ $ sudo PYTHONPATH=. python user/sdr.py --cmd="rtl_433 -M utc -F json -G"
 and verify that you are getting data from your sensors and check
 /var/log/syslog if you're not. You won't get pressure data, so here's where
 your SmartHUB comes in.
-5. Configure your Rpi to be an [enternet
-bridge](https://willhaley.com/blog/raspberry-pi-wifi-ethernet-bridge/). Again,
+5. Configure your Rpi to be an [ethernet bridge](https://willhaley.com/blog/raspberry-pi-wifi-ethernet-bridge/). Again,
 you need to be using Wifi to connect to your lan so you can use ethernet to
 connect to your SmartHUB. The linked instructions worked perfect for my Pi 1
 B+, and should work for newer devices.  Don't connect your SmartHUB yet. 
