@@ -103,6 +103,18 @@ $ sudo sudo a2enmod cgi
 and create a directory and file to store pressure data.
 <pre>
 $ sudo vi /usr/lib/cgi-bin/myacurite
+</pre>
+Contents are based on [weewx-interceptor](https://github.com/matthewwall/weewx-interceptor) package
+<pre>
+#!/bin/sh
+echo "Content-type: text/html"
+echo
+echo '{ "success": 1, "checkversion": "224" }'
+DATA=$QUERY_STRING
+echo "$DATA" | awk -F'baromin=' '{print $2}' | awk -F '&' '{print $1}' > /var/lib/bridge-data/pressure
+</pre>
+Then change permissions and create the file to collect the data
+<pre>
 $ sudo chmod 755 /usr/lib/cgi-bin/myacurite
 $ sudo mkdir /var/lib/bridge-data
 $ sudo touch /var/lib/bridge-data/pressure
