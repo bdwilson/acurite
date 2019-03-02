@@ -23,26 +23,26 @@ Options for installation
 1. Buy a [SDR Receiver](https://www.amazon.com/gp/product/B009U7WZCA)
 and connect it to a Linux box or Raspberry Pi. Weewx can upload your data to
 Wunderground, CWOP, PWSweather, Open Weathermap, Weather Bug, etc. Your cost is
-SDR dongle ($20) + Rpi ($30-50).  
-'Pros': Cheapest solution without buying more Acurite hardware
-'Cons': No MyAcurite app access, no pressure data (pressure data comes from
+SDR dongle ($20) + Rpi ($30-50). <br>
+''Pros'': Cheapest solution without buying more Acurite hardware<br>
+''Cons'': No MyAcurite app access, no pressure data (pressure data comes from
 Access or SmartHUB, not the outdoor sensors).
 2. If you want MyAcurite, you need an Acurite Access. You can still use items
 in #1 if you want local data and uploads to other providers; you can still use
 MyAcurite (through Acurite Access) to upload to Wunderground.  You still won't
-have pressure data for your local data unless you go to option 3.
-'Pros': You can use the MyAcurite app to get your weather data and to send to
-Wunderground.
-'Cons': You don't get local sensor data unless you also do items in #1. Even
+have pressure data for your local data unless you go to option 3.<br>
+''Pros'': You can use the MyAcurite app to get your weather data and to send to
+Wunderground.<br>
+''Cons'': You don't get local sensor data unless you also do items in #1. Even
 if you get local sensor data, you won't get pressure information unless you go
 to option #3.
 3. If you want local data including pressure and ability to send data to providers other than
 Wunderground (i.e. Weewx), you'll need to have an old SmartHUB device that is
 still linked to some sensor and the items in #1. If you have an old SmartHUB device that just
-became recently unsupported, this is where many of you will be at. 
-'Pros': All original sensor data will exist locally. You can also send data to
-other providers.
-'Cons': MyAcurite won't work unless you also have an Acurite Access. Other con
+became recently unsupported, this is where many of you will be at.<br>
+''Pros'': All original sensor data will exist locally. You can also send data to
+other providers.<br>
+''Cons'': MyAcurite won't work unless you also have an Acurite Access. Other con
 is that you'll have to run your old SmartHUB just to get pressure data off the
 local sensor, so you could be running two hubs (SmartHUB and Acurite access)
 simultaneously which seems wasteful. 
@@ -103,14 +103,16 @@ $ sudo PYTHONPATH=. python user/sdr.py --cmd="rtl_433 -M utc -F json -G"
 4. Hopefully you're getting sensor data now, go to http://your.ip.address/weewx
 and verify that you are getting data from your sensors and check
 /var/log/syslog if you're not. You won't get pressure data, so here's where
-your SmartHUB comes in.
-5. Configure your Rpi to be an [ethernet bridge](https://willhaley.com/blog/raspberry-pi-wifi-ethernet-bridge/). Again,
+your SmartHUB comes in. ''If you don't have a SmartHUB, you're done. If you
+want to send your Weewx data to other providers, check the config file in
+/etc/weewx/weewx.conf''.
+5. If you have a SmartHUB that is configured with at least one sensor, then
+keep going. Configure your Rpi to be an [ethernet bridge](https://willhaley.com/blog/raspberry-pi-wifi-ethernet-bridge/). Again,
 you need to be using Wifi to connect to your lan so you can use ethernet to
 connect to your SmartHUB. The linked instructions worked perfect for my Pi 1
 B+, and should work for newer devices. Don't connect your SmartHUB yet. 
 6. Add an entry to /etc/hosts on your device, it should look similar to below,
-but with the ip address (wireless lan IP) of your Pi - use ifconfig -a command
-to get this if you're not sure:
+but with the ip address (wireless lan IP) of your Pi, same one from step #4.
 <pre>
 192.168.XX.XX  hubapi.myacurite.com
 </pre>
@@ -126,7 +128,10 @@ and create a directory and file to store pressure data.
 <pre>
 $ sudo vi /usr/lib/cgi-bin/myacurite
 </pre>
-Contents are based on [weewx-interceptor](https://github.com/matthewwall/weewx-interceptor) package
+Contents are based on
+[weewx-interceptor](https://github.com/matthewwall/weewx-interceptor) package;
+Thanks Matthew for Weewx and this. This is not meant to be secure - if you have
+a hostile LAN, then you should adjust your access list in step 9.
 <pre>
 #!/bin/sh
 echo "Content-type: text/html"
@@ -142,14 +147,20 @@ $ sudo mkdir /var/lib/bridge-data
 $ sudo touch /var/lib/bridge-data/pressure
 $ sudo chown -R www-data:www-data  /var/lib/bridge-data/
 </pre>
-9. Create a /etc/apache2/conf-enabled/acurite.conf
+9. Create a /etc/apache2/conf-enabled/acurite.conf. Change the Allow IP
+address/network to be whatever you configured for your DHCP range for your
+bridged network in step 5. The Access list is in case you do expose this server
+to the Internet, or reverse proxy connections to your internal Weewx
+server/Rpi.
 <pre>
 ScriptAlias /weatherstation/updateweatherstation /usr/lib/cgi-bin/myacurite
 &lt;Directory "/usr/lib/cgi-bin"&gt;
+    AllowOverride all
     Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch
-    Order allow,deny
-    Allow from all
-Require all granted
+    Order deny,allow
+    Deny from all
+    Allow from 192.168.6.0/255.255.255.0 ::1/128
+    Allow from 127.0.0.1
 &lt;/Directory&gt;
 </pre>
 10. Restart apache <pre> $ sudo /etc/init.d/apache2 restart</pre>
@@ -160,7 +171,10 @@ Require all granted
     [[Services]]
         data_services = user.pond.PondService
 </pre>
-12. Restart Weewx
+12. Restart Weewx; check /var/log/syslog for errors.  If you see rtl_433
+errors, you may need to make sure your antenna is plugged in. You can only run
+1 instance of rtl_433; so if weewx is running, you can't debug using the
+commands in step 2, so stop weewx first.  
 <pre>
 sudo /etc/init.d/weewx stop
 sudo /etc/init.d/weewx start
@@ -168,13 +182,14 @@ sudo /etc/init.d/weewx start
 13. Connect your SmartHUB to your Rpi via ethernet, it should start sending
 data to your Rpi and writing that pressure data to:
 /var/lib/bridge-data/pressure. It should not be attempting to send data to
-hubapi.myacurite.com (which is now dead anyway).  
+hubapi.myacurite.com (which is now dead anyway).
 14. Now you can go to MyAcurite, plug in and register your Acurite Access if
 you haven't, and migrate your sensors over to your Access. Never connect your
 SmartHUB to the internet as you may lose it's existing configuration (which
-doesn't really matter since the only data coming out of SmartHub that you care
+doesn't really matter since the only data coming out of SmartHUB that you care
 about is the pressure that's coming from the hub itself. You're getting the
-rest of the data via SDR).
+rest of the data via SDR). You can go into MyAcurite and remove your old
+SmartHUB device as it won't be getting any data anyway.
 
 What did I just do?
 ---
