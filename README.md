@@ -194,13 +194,14 @@ SmartHUB device as it won't be getting any data anyway.
 What did I just do?
 ---
 You now have a setup that:
-1) Transmits data to Wunderground via Acurite Access and MyAcurite app works.
-2) You have local weather data via WeeWx and pressure information (via your old SmartHUB). 
-3) If you replace any of your gear, you simply link to Acurite Access, go
-through the sdr script above and re-map the new sensor ID's.  
-4) WeeWX can also submit to Wunderground and others and is much more flexible
-than just sending data to MyAcurite. I'd also suggest you check out [this
+1) Have a setup that receives signals from Acurite sensors and feeds them into Weewx. 
+2) You have local weather data via WeeWx and pressure information (optionally if you have an old SmartHUB). 
+3) If you replace any of your sensors, go through the sdr script in step #2 and re-map the new sensor ID's.  
+4) WeeWX can also submit to [Wunderground](http://www.weewx.com/docs/usersguide.htm#Wunderground) and others and is much more flexible than just sending data to MyAcurite. I'd also suggest you check out [this
 skin](https://github.com/poblabs/weewx-belchertown).
+5) If you have an Acurite Access, the MyAcurite app will work, and can
+optionally submit data to Wunderground (which may be more reliable than Weewx.
+YMMV. 
 
 Bugs/Contact Info
 -----------------
