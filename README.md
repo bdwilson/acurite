@@ -1,24 +1,38 @@
 Acurite + Weewx-SDR + SmartHUB (optional) + Acurite Access (optional)
 ---
 
-So, Acurite went for a money grab and decided to kill all SmartHUB devices on
-Feb 28, 2019. Users who want to continue to send data to MyAcurite must upgrade
-to the Acurite Access to continue to do so. You also will be unable to manage
-your SmartHUB devices (i.e. add/remove sensors, replace failed sensors, etc)
-after Feb 28, 2019. So what do you do?  
+In early 2018 Acurite (Chaney Instruments) made a [decision to
+discontinue](https://www.acurite.com/blog/extending-end-of-service-and-support-for-acurite-smarthub.html)
+support of their SmartHUB device in August 2018, meaning they would cripple the
+device and turn off their cloud endpoint so it would would not longer be able to send
+data to their MyAcurite cloud. This announcment went off like a lead balloon
+and they backpedaled and extended support until Feb. 28, 2019 and gave people a
+discount for their Acurite Access (a device which didn't provide as frequent updates as
+SmartHUB AND it didn't support as many sensors - basically a downgrade for
+many). Users who wanted to continue to send data to MyAcurite were required to upgrade
+to the Acurite Access to continue to do so. Now that that date is passed,
+and you'll (likely?) be unable to manage your sensors connected to your
+SmartHUB in the future, what should you do? Well don't give Chaney any more money...
 
 My solution was to get a discounted Access and keep it in the box until right
-before the dropdead date. I also purchased an [SDR
-Receiver](https://www.amazon.com/gp/product/B009U7WZCA) to plug into my old
-Raspberry PI B+. The Software Defined Radio device, combined with some [linux
+before the dropdead date, but a better option would be to spend $20 on a [USB
+SDR Receiver](https://www.amazon.com/gp/product/B009U7WZCA) and $50 on a
+[Raspberry
+Pi](https://www.amazon.com/CanaKit-Raspberry-Power-Supply-Listed/dp/B07BC6WH7V/ref=sr_1_4?keywords=canakit&qid=1551490187&s=gateway&sr=8-4)
+and ''own your weather data''. I already had a Rpi 1 B+ and a WiFi dongle - this
+will work fine as well. The Software Defined Radio device, combined with some [linux
 drivers](https://github.com/matthewwall/weewx-sdr) and
 [Weewx](https://github.com/weewx/weewx), essentially allows you to sniff the
-Acurite sensors as they transmit their info over the air - you don't even need an Access
-device or SmartHUB to receive this data. I'll get into why I kept them below,
-but both SmartHUB and Acurite access are optional if you're done giving Acurite
-your money. 
+Acurite sensor data as they transmit their info over the air - this means you don't
+need to give Acurite any more money for their Access device. As an added
+benefit, if you still have
+your SmartHUB, you can still use it (if still linked to a sensor), to get
+pressure data from (since this doesn't come from their sensors). The SmartHUB
+and Acurite Access are optional in these instructions, but since I had both and
+wanted the MyAcurite app to work, this covers having both the SmartHUB and
+Access.
 
-Options for installation
+Options for Installation
 ---
 1. Buy a [SDR Receiver](https://www.amazon.com/gp/product/B009U7WZCA)
 and connect it to a Linux box or Raspberry Pi. Weewx can upload your data to
