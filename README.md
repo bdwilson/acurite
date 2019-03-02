@@ -220,7 +220,10 @@ ScriptAlias /weatherstation/updateweatherstation /usr/lib/cgi-bin/myacurite
     Allow from 127.0.0.1
 &lt;/Directory&gt;
 </pre>
-10. Restart apache <pre> $ sudo /etc/init.d/apache2 restart</pre>
+10. Restart apache 
+<pre> 
+$ sudo /etc/init.d/apache2 restart
+</pre>
 11. Copy pond.py (from this repo) to /usr/share/weewx/user and enable in /etc/weewx/weewx.conf
 (this is based on [this](https://github.com/weewx/weewx/wiki/add-sensor)). 
 <pre>
