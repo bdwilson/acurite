@@ -19,7 +19,9 @@ before the dropdead date, but a better option would be to spend $20 on a [USB
 SDR Receiver](https://www.amazon.com/gp/product/B009U7WZCA) and $50 on a
 [Raspberry
 Pi](https://www.amazon.com/CanaKit-Raspberry-Power-Supply-Listed/dp/B07BC6WH7V/ref=sr_1_4?keywords=canakit&qid=1551490187&s=gateway&sr=8-4)
-and **own your weather data**. I already had a Rpi 1 B+ and a WiFi dongle - this
+and **own your weather data** - keep it local and in your control. 
+
+I already had a Rpi 1 B+ and a WiFi dongle - this
 will work fine as well. The Software Defined Radio device, combined with some [linux
 drivers](https://github.com/matthewwall/weewx-sdr) and
 [Weewx](https://github.com/weewx/weewx), essentially allows you to sniff the
@@ -44,13 +46,13 @@ Access or SmartHUB, not the outdoor sensors).
 2. If you want MyAcurite, you need an Acurite Access. You can still use items
 in #1 if you want local data and uploads to other providers; you can still use
 MyAcurite (through Acurite Access) to upload to Wunderground.  You still won't
-have pressure data for your local data unless you go to option 3.<br>
+have pressure data for your **local** weewx data unless you go to option 3.<br>
 **Pros**: You can use the MyAcurite app to get your weather data and to send to
 Wunderground.<br>
 **Cons**: You don't get local sensor data unless you also do items in #1. Even
 if you get local sensor data, you won't get pressure information unless you go
 to option #3.
-3. If you want local data including pressure and ability to send data to providers other than
+3. If you want **local** data including pressure and ability to send data to providers other than
 Wunderground (i.e. Weewx), you'll need to have an old SmartHUB device that is
 still linked to some sensor and the items in #1. If you have an old SmartHUB device that just
 became recently unsupported, this is where many of you will be at.<br>
