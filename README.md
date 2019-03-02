@@ -19,7 +19,7 @@ before the dropdead date, but a better option would be to spend $20 on a [USB
 SDR Receiver](https://www.amazon.com/gp/product/B009U7WZCA) and $50 on a
 [Raspberry
 Pi](https://www.amazon.com/CanaKit-Raspberry-Power-Supply-Listed/dp/B07BC6WH7V/ref=sr_1_4?keywords=canakit&qid=1551490187&s=gateway&sr=8-4)
-and ''own your weather data''. I already had a Rpi 1 B+ and a WiFi dongle - this
+and **own your weather data**. I already had a Rpi 1 B+ and a WiFi dongle - this
 will work fine as well. The Software Defined Radio device, combined with some [linux
 drivers](https://github.com/matthewwall/weewx-sdr) and
 [Weewx](https://github.com/weewx/weewx), essentially allows you to sniff the
@@ -38,25 +38,25 @@ Options for Installation
 and connect it to a Linux box or Raspberry Pi. Weewx can upload your data to
 Wunderground, CWOP, PWSweather, Open Weathermap, Weather Bug, etc. Your cost is
 SDR dongle ($20) + Rpi ($30-50). <br>
-''Pros'': Cheapest solution without buying more Acurite hardware<br>
-''Cons'': No MyAcurite app access, no pressure data (pressure data comes from
+**Pros**: Cheapest solution without buying more Acurite hardware<br>
+**Cons**: No MyAcurite app access, no pressure data (pressure data comes from
 Access or SmartHUB, not the outdoor sensors).
 2. If you want MyAcurite, you need an Acurite Access. You can still use items
 in #1 if you want local data and uploads to other providers; you can still use
 MyAcurite (through Acurite Access) to upload to Wunderground.  You still won't
 have pressure data for your local data unless you go to option 3.<br>
-''Pros'': You can use the MyAcurite app to get your weather data and to send to
+**Pros**: You can use the MyAcurite app to get your weather data and to send to
 Wunderground.<br>
-''Cons'': You don't get local sensor data unless you also do items in #1. Even
+**Cons**: You don't get local sensor data unless you also do items in #1. Even
 if you get local sensor data, you won't get pressure information unless you go
 to option #3.
 3. If you want local data including pressure and ability to send data to providers other than
 Wunderground (i.e. Weewx), you'll need to have an old SmartHUB device that is
 still linked to some sensor and the items in #1. If you have an old SmartHUB device that just
 became recently unsupported, this is where many of you will be at.<br>
-''Pros'': All original sensor data will exist locally. You can also send data to
+**Pros**: All original sensor data will exist locally. You can also send data to
 other providers.<br>
-''Cons'': MyAcurite won't work unless you also have an Acurite Access. Other con
+**Cons**: MyAcurite won't work unless you also have an Acurite Access. Other con
 is that you'll have to run your old SmartHUB just to get pressure data off the
 local sensor, so you could be running two hubs (SmartHUB and Acurite access)
 simultaneously which seems wasteful. 
@@ -117,9 +117,9 @@ $ sudo PYTHONPATH=. python user/sdr.py --cmd="rtl_433 -M utc -F json -G"
 4. Hopefully you're getting sensor data now, go to http://your.ip.address/weewx
 and verify that you are getting data from your sensors and check
 /var/log/syslog if you're not. You won't get pressure data, so here's where
-your SmartHUB comes in. ''If you don't have a SmartHUB, you're done. If you
+your SmartHUB comes in. **If you don't have a SmartHUB, you're done. If you
 want to send your Weewx data to other providers, check the config file in
-/etc/weewx/weewx.conf''.
+/etc/weewx/weewx.conf**.
 5. If you have a SmartHUB that is configured with at least one sensor, then
 keep going. Configure your Rpi to be an [ethernet bridge](https://willhaley.com/blog/raspberry-pi-wifi-ethernet-bridge/). Again,
 you need to be using Wifi to connect to your lan so you can use ethernet to
