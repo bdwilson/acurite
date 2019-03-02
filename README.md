@@ -18,7 +18,7 @@ My solution was to get a discounted Access and keep it in the box until right
 before the dropdead date, but a better option would be to spend $20 on a [USB
 SDR Receiver](https://www.amazon.com/gp/product/B009U7WZCA) and $50 on a
 [Raspberry
-Pi](https://www.amazon.com/CanaKit-Raspberry-Power-Supply-Listed/dp/B07BC6WH7V/ref=sr_1_4?keywords=canakit&qid=1551490187&s=gateway&sr=8-4)
+Pi](https://www.amazon.com/CanaKit-Raspberry-Power-Supply-Listed/dp/B07BC6WH7V)
 and **own your weather data** - keep it local and in your control. 
 
 I already had a Rpi 1 B+ and a WiFi dongle - this
