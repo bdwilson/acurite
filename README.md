@@ -74,7 +74,7 @@ pressure data to (your Pi will answer for hubapi.myacurite.com).
 2. Install Weewx, SDR tools, [Weewx-SDR](https://github.com/matthewwall/weewx-sdr),
 connect up your SDR device and make sure you see your sensors show up. 
 <pre>
-$ sudo apt-get install weewx git cmake libusb-1.0-0-dev<
+$ sudo apt-get install weewx git cmake libusb-1.0-0-dev
 $ mkdir git
 $ cd git
 $ git clone git://github.com/merbanan/rtl_433
@@ -94,28 +94,68 @@ $ cd build
 $ cmake ../
 $ make
 $ sudo make install
-$ cd ~
+</pre>
+Now do a test.
+<pre>
 $ sudo rtl_433 -G
+rtl_433 version 18.12-102-g44a5c13 branch master at 201902161227 inputs file rtl_tcp RTL-SDR
+Trying conf file at "rtl_433.conf"...
+Trying conf file at "/root/.config/rtl_433/rtl_433.conf"...
+Trying conf file at "/usr/local/etc/rtl_433/rtl_433.conf"...
+Trying conf file at "/etc/rtl_433/rtl_433.conf"...
+Registered 114 out of 120 device decoding protocols [ 1-4 6-8 10-17 19-26 29-64 67-120 ]
+Found Rafael Micro R820T tuner
+Exact sample rate is: 250000.000414 Hz
+[R82XX] PLL not locked!
+Sample rate set to 250000 S/s.
+Tuner gain set to Auto.
+Tuned to 433.920MHz.
+Allocating 15 zero-copy buffers
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+time      : 2019-03-01 20:56:17
+model     : Acurite 5n1 sensor                     sensor_id : 2986          channel   : A             sequence_num: 0           battery   : LOW           message_type: 56          wind_speed: 0.0 kph       temperature: 42.1 F       humidity  : 99
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+time      : 2019-03-01 20:56:17
+model     : Acurite 5n1 sensor                     sensor_id : 2986          channel   : A             sequence_num: 1           battery   : LOW           message_type: 56          wind_speed: 0.0 kph       temperature: 42.1 F       humidity  : 99
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+time      : 2019-03-01 20:56:17
+model     : Acurite 5n1 sensor                     sensor_id : 2986          channel   : A             sequence_num: 2           battery   : LOW           message_type: 56          wind_speed: 0.0 kph       temperature: 42.1 F       humidity  : 99
+</pre>
+Now you're in business. Now get the Weewx-SDR driver.
+<pre>
 $ wget -O weewx-sdr.zip https://github.com/matthewwall/weewx-sdr/archive/master.zip
 $ sudo wee_extension --install weewx-sdr.zip
 $ sudo wee_config --reconfigure --driver=user.sdr --no-prompt
 # Run sdr.py to determine how to map your sensors. 
 $ cd /usr/share/weewx
 $ sudo PYTHONPATH=. python user/sdr.py --cmd="rtl_433 -M utc -F json -G"
+out: ['{"time" : "2019-03-02 01:58:25", "model" : "Acurite 5n1 sensor", "sensor_id" : 2986, "channel" : "A", "sequence_num" : 0, "battery" : "LOW", "message_type" : 49, "wind_speed_kph" : 0.000, "wind_dir_deg" : 270.000, "rain_inch" : 87.580}\n', '{"time" : "2019-03-02 01:58:25", "model" : "Acurite 5n1 sensor", "sensor_id" : 2986, "channel" : "A", "sequence_num" : 1, "battery" : "LOW", "message_type" : 49, "wind_speed_kph" : 0.000, "wind_dir_deg" : 270.000, "rain_inch" : 87.580}\n', '{"time" : "2019-03-02 01:58:25", "model" : "Acurite 5n1 sensor", "sensor_id" : 2986, "channel" : "A", "sequence_num" : 2, "battery" : "LOW", "message_type" : 49, "wind_speed_kph" : 0.000, "wind_dir_deg" : 270.000, "rain_inch" : 87.580}\n']
+parsed: {'channel.0BAA.Acurite5n1Packet': u'A', 'rain_total.0BAA.Acurite5n1Packet': 87.58, 'wind_dir.0BAA.Acurite5n1Packet': 270.0, 'dateTime': 1551491905, 'battery.0BAA.Acurite5n1Packet': 1, 'wind_speed.0BAA.Acurite5n1Packet': 0.0, 'usUnits': 1, 'status.0BAA.Acurite5n1Packet': None}
+parsed: {'channel.0BAA.Acurite5n1Packet': u'A', 'rain_total.0BAA.Acurite5n1Packet': 87.58, 'wind_dir.0BAA.Acurite5n1Packet': 270.0, 'dateTime': 1551491905, 'battery.0BAA.Acurite5n1Packet': 1, 'wind_speed.0BAA.Acurite5n1Packet': 0.0, 'usUnits': 1, 'status.0BAA.Acurite5n1Packet': None}
+parsed: {'channel.0BAA.Acurite5n1Packet': u'A', 'rain_total.0BAA.Acurite5n1Packet': 87.58, 'wind_dir.0BAA.Acurite5n1Packet': 270.0, 'dateTime': 1551491905, 'battery.0BAA.Acurite5n1Packet': 1, 'wind_speed.0BAA.Acurite5n1Packet': 0.0, 'usUnits': 1, 'status.0BAA.Acurite5n1Packet': None}
 </pre>
-3. This command should output data that will allow you to map your sensor(s) to Weewx. It should look similar to this, but for more info, check [Weewx-sdr instructions](https://github.com/matthewwall/weewx-sdr). This will go in /etc/weewx/weewx.conf.
+3. If you see above, the output allows you to map your sensor(s) to Weewx. It
+should look similar to this, but for more info, check [Weewx-sdr
+instructions](https://github.com/matthewwall/weewx-sdr). This will go in
+/etc/weewx/weewx.conf. If you have more sensors, you can use extraTemp1,
+extraTemp2 and extraTemp3 as sensor names to map addіtional data to. 
 <pre>
-# collect data from Acurite 5n1 sensor 0BFA and t/h sensor 24A4
+# collect data from Acurite 5n1 sensor 0BAA and t/h sensor 24A4
 [SDR]
     driver = user.sdr
     [[sensor_map]]
-        windDir = wind_dir.0BFA.Acurite5n1Packet
-        windSpeed = wind_speed.0BFA.Acurite5n1Packet
-        outTemp = temperature.0BFA.Acurite5n1Packet
-        outHumidity = humidity.0BFA.Acurite5n1Packet
-        rain_total = rain_total.0BFA.Acurite5n1Packet
+        windDir = wind_dir.0BAA.Acurite5n1Packet
+        windSpeed = wind_speed.0BAA.Acurite5n1Packet
+        outTemp = temperature.0BAA.Acurite5n1Packet
+        outHumidity = humidity.0BAA.Acurite5n1Packet
+        rain_total = rain_total.0BAA.Acurite5n1Packet
         inTemp = temperature.24A4.AcuriteTowerPacket
         inHumidity = humidity.24A4.AcuriteTowerPacket
+</pre>
+Restart Weewx
+<pre>
+sudo /etc/init.d/weewx stop
+sudo /etc/init.d/weewx start
 </pre>
 4. Hopefully you're getting sensor data now, go to http://your.ip.address/weewx
 and verify that you are getting data from your sensors and check
