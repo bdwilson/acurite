@@ -64,12 +64,16 @@ Weewx.<br>
 is that you'll have to run your old SmartHUB just to get pressure data, so you could be running two hubs (SmartHUB and Acurite access)
 simultaneously which seems wasteful. 
 
+I chose to go with #3 because I already had a Pi, an Access and a SmartHUB. 
+
 Installation
 ---
 1. Install
 [Rasbian](https://medium.com/@danidudas/install-raspbian-jessie-lite-and-setup-wi-fi-without-access-to-command-line-or-using-the-network-97f065af722e)
-on your Pi device and make sure you are using Wifi for LAN. Your Pi will
-serve 2 purposes - run Weewx and act as place for your SmartHUB to submit it's
+on your PI device. [This
+guide](https://medium.com/@danidudas/install-raspbian-jessie-lite-and-setup-wi-fi-without-access-to-command-line-or-using-the-network-97f065af722e)  is the best that I've found, so use it unless you know what you're
+doing or already have a PI installed. Make sure you are using Wifi for LAN. Your Pi will
+serve 2 purposes - run Weewx backend and web server and act as place for your SmartHUB to submit it's
 pressure data to (your Pi will answer for hubapi.myacurite.com). 
 2. Install Weewx, SDR tools, [Weewx-SDR](https://github.com/matthewwall/weewx-sdr),
 connect up your SDR device and make sure you see your sensors show up. 
@@ -142,15 +146,25 @@ extraTemp2 and extraTemp3 as sensor names to map addіtional data to.
 <pre>
 # collect data from Acurite 5n1 sensor 0BAA and t/h sensor 24A4
 [SDR]
+    # The driver to use
     driver = user.sdr
+    # cmd = rtl_433 -M utc -F json -G  # you can uncomment this if you have
+    # issues - check your logs! 
+    path = /usr/local/bin
+    ld_library_path = /usr/local/lib
     [[sensor_map]]
         windDir = wind_dir.0BAA.Acurite5n1Packet
         windSpeed = wind_speed.0BAA.Acurite5n1Packet
         outTemp = temperature.0BAA.Acurite5n1Packet
         outHumidity = humidity.0BAA.Acurite5n1Packet
         rain_total = rain_total.0BAA.Acurite5n1Packet
-        inTemp = temperature.24A4.AcuriteTowerPacket
-        inHumidity = humidity.24A4.AcuriteTowerPacket
+        inTemp = temperature.3969.AcuriteTowerPacket
+        inHumidity = humidity.3969.AcuriteTowerPacket
+		# I have more sensors, so I added them below, you may not.
+        #extraTemp1 = temperature_probe.0BF1.Acurite00275MPacket
+        #extraTemp2 = temperature.0BF1.Acurite00275MPacket
+    [[deltas]]
+        rain = rain_total
 </pre>
 Restart Weewx
 <pre>
