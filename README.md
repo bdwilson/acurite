@@ -64,7 +64,8 @@ Weewx.<br>
 is that you'll have to run your old SmartHUB just to get pressure data, so you could be running two hubs (SmartHUB and Acurite access)
 simultaneously which seems wasteful. 
 
-I chose to go with #3 because I already had a Pi, an Access and a SmartHUB. 
+I chose to go with #3 because I already had a Pi, a SmartHUB and an (optional)
+Acurite Access.
 
 Installation
 ---
@@ -72,9 +73,10 @@ Installation
 [Rasbian](https://medium.com/@danidudas/install-raspbian-jessie-lite-and-setup-wi-fi-without-access-to-command-line-or-using-the-network-97f065af722e)
 on your PI device. [This
 guide](https://medium.com/@danidudas/install-raspbian-jessie-lite-and-setup-wi-fi-without-access-to-command-line-or-using-the-network-97f065af722e)  is the best that I've found, so use it unless you know what you're
-doing or already have a PI installed. Make sure you are using Wifi for LAN. Your Pi will
-serve 2 purposes - run Weewx backend and web server and act as place for your SmartHUB to submit it's
-pressure data to (your Pi will answer for hubapi.myacurite.com). 
+doing or already have a PI installed. If you're bringing your own or already
+have one setup, **make sure you are using Wifi for LAN**. Your Pi will
+serve 2 purposes - run Weewx backend and web server (via Wifi) and act as place for your SmartHUB to submit it's
+pressure data to (via wired ethernet - your Pi will answer for hubapi.myacurite.com). 
 2. Install Weewx, SDR tools, [Weewx-SDR](https://github.com/matthewwall/weewx-sdr),
 connect up your SDR device and make sure you see your sensors show up. 
 <pre>
