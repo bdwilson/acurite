@@ -3,7 +3,7 @@ Raspberry Pi Pressure Sensor to Weewx
 
 1. You need a [$10 on a pressure sensor](https://www.amazon.com/gp/product/B01LETIESU)
 2. Female/Female [dupont cables](https://www.amazon.com/Yohii-EL-CP-004-Multicolored-Dupont-Breadboard/dp/B07F378FCJ) - I had these lying around.
-3. [3d case for your sensori](https://www.thingiverse.com/thing:3799556) (optional)
+3. [3d case for your sensor](https://www.thingiverse.com/thing:3799556) (optional)
 
 Installation
 ---
