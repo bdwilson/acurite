@@ -56,11 +56,11 @@ $ sudo curl -s https://raw.githubusercontent.com/bdwilson/acurite/master/bme280.
         data_services = user.bme280.bme
 </pre>
 Also add a section for your BME device above the ''[Engine]'' section. In the
-example below, I'm mapping the BME pressure to the ''pressure' device. I'm not
+example below, I'm mapping the BME pressure to the Weewx ''pressure' value. I'm not
 mapping the temperature from the BME device to anything in Weewx. You'll also
 need to determine your sea level denominator which is based on # of meters
 above sea level. This adjusts the pressure output from the BME to the pressure
-at your altitude∵ In my example, I'm 78.9432 meters above sea level:
+at your altitude. In my example, I'm 78.9432 meters above sea level:
 (1-(6.87535 x (10^-6)) x 78.9432)^5.2561 = 0.99715048109
 The other thing to consider is your location where your Adafruit BME280 modules
 are installed.
