@@ -1,4 +1,4 @@
-Acurite + Weewx-SDR + SmartHUB (optional) + Acurite Access (optional)
+Acurite + Weewx-SDR + SmartHUB (optional) or Pi Pressure Sensor + Acurite Access (optional)
 ---
 
 In early 2018 Acurite (Chaney Instruments) made a [decision to
@@ -32,7 +32,11 @@ your SmartHUB, you can still use it (if still linked to a sensor), to get
 pressure data from (since this doesn't come from their sensors). The SmartHUB
 and Acurite Access are optional in these instructions, but since I had both and
 wanted the MyAcurite app to work, this covers having both the SmartHUB and
-Access.
+Access. 
+
+Update 09AUG2019: I bought a [$10 on a pressure
+sensor](https://www.amazon.com/gp/product/B01LETIESU) that is powered by the Pi
+so the Acurite SmartHUB is now in the trash. You can read how to add that [here]().
 
 Options for Installation
 ---
@@ -63,8 +67,22 @@ Weewx.<br>
 **Cons**: MyAcurite won't work unless you also have an Acurite Access. Other con
 is that you'll have to run your old SmartHUB just to get pressure data, so you could be running two hubs (SmartHUB and Acurite access)
 simultaneously which seems wasteful. 
+4. If you want **local** data including pressure and ability to send data to providers other than
+Wunderground (i.e. Weewx), and you don't want/have SmartHUB device but you're
+comfortable soldering and ok spending [$10 on a pressure sensor](https://www.amazon.com/gp/product/B01LETIESU), then go this
+route. The device gets power from your Rpi, so no powering the otherwise dumb
+SmartHUB, nor do you need to trick your Pi into being a network bridge to get
+data from your SmartHUB - just throw it in the trash. 
+**Pros**: All original sensor data will exist locally (sensor data + local
+pressure data from Pi sensor). You can also send data to other providers via
+Weewx.<br>
+**Cons**: MyAcurite won't work unless you also have an Acurite Access. You'll
+need to solder pins to a pressure sensor and wire 4 dupont cables to your pi.
 
-I chose to go with #3 because I already had a Pi, a SmartHUB and an (optional)
+I chose to go with #3 initially, but then moved to #4 because I already had a
+Pi, and a SmartHUB, but pressure data from the old SmartHUB isn't completely
+accurate as it's manipulated by Acurite - plus you're having to power this
+device and trick your pi into getting data from it. Just trash your SmartHUB.
 Acurite Access.
 
 Installation
@@ -178,7 +196,8 @@ and verify that you are getting data from your sensors and check
 /var/log/syslog if you're not. You won't get pressure data, so here's where
 your SmartHUB comes in. **If you don't have a SmartHUB, you're done. If you
 want to send your Weewx data to other providers, check the config file in
-/etc/weewx/weewx.conf**.
+/etc/weewx/weewx.conf - if you want to get pressure data and are OK soldering,
+then go [here to read about how to use a pressure sensor]().**
 5. If you have a SmartHUB that is configured with at least one sensor, then
 keep going. Configure your Rpi to be an [ethernet bridge](https://willhaley.com/blog/raspberry-pi-wifi-ethernet-bridge/). Again,
 you need to be using Wifi to connect to your lan so you can use ethernet to
