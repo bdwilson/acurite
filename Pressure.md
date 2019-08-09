@@ -68,7 +68,6 @@ are installed.
 [BME280]
     col_pres = pressure
     col_temp = ''
-    #sl_denominator = 0.98445116524
     sl_denominator = 0.99715048109  # https://www.raspberrypi.org/forums/viewtopic.php?t=154262
     BME280_lib_location = '/home/pi/Adafruit_Python_BME280'
 </pre>
@@ -77,7 +76,7 @@ are installed.
 sudo /etc/init.d/weewx stop
 sudo /etc/init.d/weewx start
 </pre>
-8. Check /var/log/syslog for any errors. If you own an Acurite SmartHUB throw it away. 
+8. Check /var/log/syslog for any errors. If you own an Acurite SmartHUB; throw it away. 
 
 Bugs/Contact Info
 -----------------

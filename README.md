@@ -34,9 +34,9 @@ and Acurite Access are optional in these instructions, but since I had both and
 wanted the MyAcurite app to work, this covers having both the SmartHUB and
 Access. 
 
-Update 09AUG2019: I bought a [$10 on a pressure
+**Update 09AUG2019**: I bought a [$10 on a pressure
 sensor](https://www.amazon.com/gp/product/B01LETIESU) that is powered by the Pi
-so the Acurite SmartHUB is now in the trash. You can read how to add that [here]().
+so the Acurite SmartHUB is now in the trash. You can read how to add that [here](https://github.com/bdwilson/acurite/blob/master/Pressure.md).
 
 Options for Installation
 ---
