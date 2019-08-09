@@ -9,7 +9,7 @@ cables](https://www.amazon.com/Yohii-EL-CP-004-Multicolored-Dupont-Breadboard/dp
 
 Installation
 ---
-1. Connect the sensor device to your Pi![]()
+1. Connect the sensor device to your Pi![](https://raw.githubusercontent.com/bdwilson/acurite/master/bme280_bb.png)
 2. [Enable I2C on your
 Pi](https://learn.adafruit.com/adafruits-raspberry-pi-lesson-4-gpio-setup/configuring-i2c).
 Verify connectivity with the sesnor. You should see 76.
@@ -28,7 +28,7 @@ Verify connectivity with the sesnor. You should see 76.
 3. Install the python modules:
 <pre>
 $ sudo apt-get update
-$ sudo apt-get install build-essential python-pip python-dev python-smbus git
+$ sudo apt-get install build-essential python-pip python-dev python-smbus git curl
 $ cd ~pi
 $ git clone https://github.com/adafruit/Adafruit_Python_GPIO.git
 $ cd Adafruit_Python_GPIO
@@ -47,7 +47,7 @@ Humidity  = 30.67 %
 5. Install Weewx user program (note: I found this program on one of the weewx forums; I modified it to fit my needs)
 <pre>
 $ cd /usr/share/weewx/user
-$ sudo curl -s FIX -o bme280.py
+$ sudo curl -s https://raw.githubusercontent.com/bdwilson/acurite/master/bme280.py -o bme280.py
 </pre>
 6. Edit Weewx config. Under ''[[Services]]'' section, add this:
 <pre>

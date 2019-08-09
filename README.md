@@ -83,7 +83,6 @@ I chose to go with #3 initially, but then moved to #4 because I already had a
 Pi, and a SmartHUB, but pressure data from the old SmartHUB isn't completely
 accurate as it's manipulated by Acurite - plus you're having to power this
 device and trick your pi into getting data from it. Just trash your SmartHUB.
-Acurite Access.
 
 Installation
 ---
@@ -197,12 +196,14 @@ and verify that you are getting data from your sensors and check
 your SmartHUB comes in. **If you don't have a SmartHUB, you're done. If you
 want to send your Weewx data to other providers, check the config file in
 /etc/weewx/weewx.conf - if you want to get pressure data and are OK soldering,
-then go [here to read about how to use a pressure sensor]().**
+then go [here to read about how to use a pressure sensor](https://github.com/bdwilson/acurite/blob/master/Pressure.md).**
+
 5. If you have a SmartHUB that is configured with at least one sensor, then
 keep going. Configure your Rpi to be an [ethernet bridge](https://willhaley.com/blog/raspberry-pi-wifi-ethernet-bridge/). Again,
 you need to be using Wifi to connect to your lan so you can use ethernet to
 connect to your SmartHUB. The linked instructions worked perfect for my Pi 1
 B+, and should work for newer devices. Don't connect your SmartHUB yet. 
+
 6. Add an entry to /etc/hosts on your device, it should look similar to below,
 but with the ip address (wireless lan IP) of your Pi, same one from step #4.
 <pre>
@@ -278,6 +279,7 @@ sudo /etc/init.d/weewx start
 data to your Rpi and writing that pressure data to:
 /var/lib/bridge-data/pressure. It should not be attempting to send data to
 hubapi.myacurite.com (which is now dead anyway).
+
 14. Now you can go to MyAcurite, plug in and register your Acurite Access if
 you haven't, and migrate your sensors over to your Access. Never connect your
 SmartHUB to the internet as you may lose it's existing configuration (which
