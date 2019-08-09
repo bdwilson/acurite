@@ -77,12 +77,14 @@ data from your SmartHUB - just throw it in the trash.
 pressure data from Pi sensor). You can also send data to other providers via
 Weewx.<br>
 **Cons**: MyAcurite won't work unless you also have an Acurite Access. You'll
-need to solder pins to a pressure sensor and wire 4 dupont cables to your pi.
+need to [solder pins to a pressure sensor and wire 4 dupont cables to your
+pi](https://github.com/bdwilson/acurite/blob/master/Pressure.md).
 
 I chose to go with #3 initially, but then moved to #4 because I already had a
 Pi, and a SmartHUB, but pressure data from the old SmartHUB isn't completely
 accurate as it's manipulated by Acurite - plus you're having to power this
-device and trick your pi into getting data from it. Just trash your SmartHUB.
+device and trick your pi into getting data from it. Just trash your SmartHUB
+and go with option #4. 
 
 Installation
 ---
