@@ -38,6 +38,10 @@ Access.
 sensor](https://www.amazon.com/gp/product/B01LETIESU) that is powered by the Pi
 so the Acurite SmartHUB is now in the trash. You can read how to add that [here](https://github.com/bdwilson/acurite/blob/master/Pressure.md).
 
+**Update 28MAY2020**: I'm now getting my pool temps without Acurite - for more
+info on that see [this project
+page](https://github.com/bdwilson/weewx-poolsensor).
+
 Options for Installation
 ---
 1. Buy a [SDR Receiver](https://www.amazon.com/gp/product/B009U7WZCA)
