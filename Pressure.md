@@ -25,7 +25,8 @@ Verify connectivity with the sesnor. You should see 76.
 </pre>
 3. Install the python modules -  **NOTE, there are working versions of those
 modules in this repo if you run into issues where things aren't working for
-you.**
+you. I have a note in my install notes about a smbus.py change in newer
+versions of PureIO, so use the one from here if you're having issues.**
 <pre>
 $ sudo apt-get update
 $ sudo apt-get install build-essential python-pip python-dev python-smbus git curl
