@@ -1,7 +1,7 @@
 Acurite + Weewx-SDR + SmartHUB (optional) or Pi Pressure Sensor + Acurite Access (optional)
 ---
 
-<b>UPDATE 8/2022</b>: I would highly recommend you ditch your Acurite setup. Weewx SDR with Acurite devices always caused me random issues. I have since moved to [Ambient Weather WS-1900a](https://amzn.to/3pTXfmp) and an [Ecowitt GW1100](https://amzn.to/3cwTU9B). This combination is flawless and [well-supported in WeeWX](https://github.com/gjr80/weewx-gw1000) and can send 1 minute updates directly to Wunderground, and works flawlessly in Hubitat. I would urge you to use this opportunity to skip the hoops below and get into something that works without hoops. The above combo will run you less than $200.
+<b>UPDATE 8/2022</b>: I would highly recommend you ditch your Acurite setup. Weewx SDR with Acurite devices always caused me random issues. I have since moved to [Ambient Weather WS-1900a](https://amzn.to/3pTXfmp) and an [Ecowitt GW1100](https://amzn.to/3cwTU9B). This combination is flawless and [well-supported in WeeWX](https://github.com/gjr80/weewx-gw1000) and can send 1 minute updates directly to Wunderground, and works flawlessly in Hubitat. I would urge you to use this opportunity to skip the hoops below and get into something that works without hoops. The above combo will run you less than $200. I've also been able to ditch the Raspberry Pi and move to a [dockerized-version of Weewx](https://github.com/bdwilson/docker-weewx). 
 
 <hr>
 
